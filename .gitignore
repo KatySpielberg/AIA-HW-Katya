@@ -1,0 +1,22 @@
+# .NET build
+bin/
+obj/
+
+# Visual Studio
+.vs/
+
+# Logs
+*.log
+
+# User-specific files
+*.user
+*.suo
+
+# Angular / Node
+node_modules/
+dist/
+.angular/
+
+# OS files
+Thumbs.db
+.DS_Store
