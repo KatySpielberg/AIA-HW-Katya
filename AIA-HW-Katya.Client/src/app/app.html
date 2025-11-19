@@ -14,6 +14,24 @@
     (submitForm)="onSubmit()"
   ></app-ad-form>
 
+  <!-- אזור חיפוש וסינון -->
+  <section class="filters">
+    <div class="filters-row">
+      <input
+        type="text"
+        placeholder="Search by title, description, owner or location"
+        [(ngModel)]="searchTerm"
+      />
+
+      <select [(ngModel)]="selectedCategory">
+        <option value="ALL">All categories</option>
+        <option *ngFor="let c of categories" [value]="c">
+          {{ c }}
+        </option>
+      </select>
+    </div>
+  </section>
+
   <!-- מצב טעינה -->
   <section *ngIf="isLoading" class="state state-loading">
     Loading ads...
@@ -24,15 +42,29 @@
     {{ error }}
   </section>
 
-  <!-- מצב ללא מודעות -->
-  <section *ngIf="!isLoading && !error && ads.length === 0" class="state state-empty">
+  <!-- מצב ללא מודעות כלל -->
+  <section
+    *ngIf="!isLoading && !error && ads.length === 0"
+    class="state state-empty"
+  >
     No ads yet. Be the first to post!
   </section>
 
-  <!-- רשימת מודעות -->
-  <section *ngIf="!isLoading && !error && ads.length > 0" class="ads-grid">
+  <!-- מצב: יש מודעות, אבל שום מודעה לא מתאימה לסינון/חיפוש -->
+  <section
+    *ngIf="!isLoading && !error && ads.length > 0 && filteredAds.length === 0"
+    class="state state-empty"
+  >
+    No ads match your search and filters.
+  </section>
+
+  <!-- רשימת מודעות (אחרי סינון) -->
+  <section
+    *ngIf="!isLoading && !error && filteredAds.length > 0"
+    class="ads-grid"
+  >
     <app-ad-card
-      *ngFor="let ad of ads"
+      *ngFor="let ad of filteredAds"
       [ad]="ad"
       (edit)="editAd($event)"
       (delete)="deleteAd($event)"

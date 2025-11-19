@@ -50,3 +50,22 @@
   gap: 1rem;
   margin-top: 1.5rem;
 }
+
+.filters {
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.filters-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.filters-row input,
+.filters-row select {
+  padding: 0.45rem 0.5rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 0.9rem;
+}
