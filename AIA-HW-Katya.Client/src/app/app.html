@@ -1,58 +1,23 @@
 <div class="page">
   <header class="page-header">
     <h1>Ads Board</h1>
-    <p class="page-subtitle">Browse latest BUY&SELL, RENT, TRAVEL and EVENT ads.</p>
+    <p class="page-subtitle">
+      Browse latest BUY&SELL, RENT, TRAVEL and EVENT ads.
+    </p>
   </header>
 
-  <!-- טופס יצירת מודעה -->
-  <section class="ad-form-section">
-    <h2>Create new ad</h2>
-
-    <form [formGroup]="adForm" (ngSubmit)="onSubmit()" class="ad-form">
-      <div class="form-row">
-        <label for="category">Category</label>
-        <select id="category" formControlName="category">
-          <option value="BUY&SELL">BUY&SELL</option>
-          <option value="RENT">RENT</option>
-          <option value="TRAVEL">TRAVEL</option>
-          <option value="EVENT">EVENT</option>
-        </select>
-      </div>
-
-      <div class="form-row">
-        <label for="title">Title</label>
-        <input id="title" type="text" formControlName="title" />
-      </div>
-
-      <div class="form-row">
-        <label for="description">Description</label>
-        <textarea id="description" rows="2" formControlName="description"></textarea>
-      </div>
-
-      <div class="form-row two-cols">
-        <div>
-          <label for="owner">Owner</label>
-          <input id="owner" type="text" formControlName="owner" />
-        </div>
-        <div>
-          <label for="location">Location</label>
-          <input id="location" type="text" formControlName="location" />
-        </div>
-      </div>
-
-      <div class="form-row">
-        <label for="imageUrl">Image URL (optional)</label>
-        <input id="imageUrl" type="text" formControlName="imageUrl" />
-      </div>
-
-      <button type="submit" class="btn-primary" [disabled]="adForm.invalid || isSaving">
-        {{ editingId ? 'Update ad' : 'Create ad' }}
-      </button>
-    </form>
-  </section>
+  <!-- טופס יצירה/עריכה כקומפוננטה -->
+  <app-ad-form
+    [form]="adForm"
+    [isSaving]="isSaving"
+    [isEditMode]="!!editingId"
+    (submitForm)="onSubmit()"
+  ></app-ad-form>
 
   <!-- מצב טעינה -->
-  <section *ngIf="isLoading" class="state state-loading">Loading ads...</section>
+  <section *ngIf="isLoading" class="state state-loading">
+    Loading ads...
+  </section>
 
   <!-- מצב שגיאה -->
   <section *ngIf="error" class="state state-error">
@@ -66,28 +31,11 @@
 
   <!-- רשימת מודעות -->
   <section *ngIf="!isLoading && !error && ads.length > 0" class="ads-grid">
-    <article *ngFor="let ad of ads" class="ad-card" [ngClass]="getCategoryClass(ad.category)">
-      <header class="ad-header">
-        <span class="ad-category">{{ ad.category }}</span>
-        <span class="ad-date">{{ ad.createdAt | date : 'dd/MM/yyyy' }}</span>
-      </header>
-
-      <h2 class="ad-title">
-        {{ ad.title }}
-      </h2>
-
-      <p class="ad-description">
-        {{ ad.description }}
-      </p>
-
-      <footer class="ad-footer">
-        <span class="ad-owner">By {{ ad.owner }}</span>
-        <span class="ad-location">{{ ad.location }}</span>
-      </footer>
-      <div class="ad-actions">
-        <button class="btn-secondary" (click)="editAd(ad)">Edit</button>
-        <button class="btn-danger" (click)="deleteAd(ad)">Delete</button>
-      </div>
-    </article>
+    <app-ad-card
+      *ngFor="let ad of ads"
+      [ad]="ad"
+      (edit)="editAd($event)"
+      (delete)="deleteAd($event)"
+    ></app-ad-card>
   </section>
 </div>

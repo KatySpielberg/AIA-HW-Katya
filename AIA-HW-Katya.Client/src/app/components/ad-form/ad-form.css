@@ -1,0 +1,61 @@
+.ad-form-section {
+  margin-top: 1rem;
+  padding: 1rem;
+  border-radius: 10px;
+  background-color: #fafafa;
+  border: 1px solid #e0e0e0;
+}
+
+.ad-form-section h2 {
+  margin-top: 0;
+  font-size: 1.2rem;
+}
+
+.ad-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+.form-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.form-row.two-cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+}
+
+.form-row label {
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.form-row input,
+.form-row select,
+.form-row textarea {
+  padding: 0.45rem 0.5rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 0.9rem;
+}
+
+.btn-primary {
+  align-self: flex-start;
+  padding: 0.5rem 1.1rem;
+  border-radius: 999px;
+  border: none;
+  background-color: #1976d2;
+  color: white;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.btn-primary:disabled {
+  opacity: 0.65;
+  cursor: default;
+}

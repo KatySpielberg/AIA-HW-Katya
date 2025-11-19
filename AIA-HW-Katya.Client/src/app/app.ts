@@ -1,19 +1,26 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Ad, AD_CATEGORIES, AdCategory } from './models/ad.model';
+import { Ad } from './models/ad.model';
 import { AdsService } from './services/ads.service';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AdCardComponent } from './components/ad-card/ad-card';
+import { AdFormComponent } from './components/ad-form/ad-form';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    AdCardComponent,
+    AdFormComponent
+  ],
   templateUrl: './app.html',
   styleUrls: ['./app.css']
 })
 export class AppComponent implements OnInit {
 
-  // רשימת המודעות שמגיעה מהשרת
+  // רשימת המודעות שמגיעה מה-API
   ads: Ad[] = [];
   isLoading = false;
   error: string | null = null;
@@ -22,9 +29,6 @@ export class AppComponent implements OnInit {
   adForm!: FormGroup;
   isSaving = false;
   editingId: number | null = null;
-
-  // רשימת קטגוריות (מגיעה מהמודל)
-  categories: AdCategory[] = AD_CATEGORIES;
 
   constructor(
     private adsService: AdsService,
@@ -45,7 +49,7 @@ export class AppComponent implements OnInit {
     this.loadAds();
   }
 
-  // טעינת כל המודעות מהשרת
+  // טעינת מודעות מהשרת
   loadAds(): void {
     this.isLoading = true;
     this.error = null;
@@ -63,7 +67,7 @@ export class AppComponent implements OnInit {
     });
   }
 
-  // שליחת הטופס ליצירת מודעה חדשה או עדכון קיימת
+  // שליחת הטופס - יצירה או עדכון
   onSubmit(): void {
     if (this.adForm.invalid || this.isSaving) {
       return;
@@ -119,10 +123,8 @@ export class AppComponent implements OnInit {
 
     this.adsService.deleteAd(ad.id).subscribe({
       next: () => {
-        // מסננים את המודעה מהרשימה
         this.ads = this.ads.filter(a => a.id !== ad.id);
 
-        // אם ערכנו את אותה מודעה – נאפס את הטופס
         if (this.editingId === ad.id) {
           this.resetForm();
         } else {
@@ -137,23 +139,7 @@ export class AppComponent implements OnInit {
     });
   }
 
-  // מחזיר class לפי קטגוריה (עבור צבעים ב-UI)
-  getCategoryClass(category: AdCategory): string {
-    switch (category) {
-      case 'BUY&SELL':
-        return 'category-buy-sell';
-      case 'RENT':
-        return 'category-rent';
-      case 'TRAVEL':
-        return 'category-travel';
-      case 'EVENT':
-        return 'category-event';
-      default:
-        return 'category-other';
-    }
-  }
-
-  // מילוי הטופס במודעה קיימת לצורך עריכה
+  // מילוי הטופס מערכים של מודעה קיימת לצורך עריכה
   editAd(ad: Ad): void {
     this.editingId = ad.id;
 
@@ -167,7 +153,7 @@ export class AppComponent implements OnInit {
     });
   }
 
-  // איפוס הטופס חזרה למצב יצירה
+  // איפוס הטופס למצב "יצירה"
   resetForm(): void {
     this.adForm.reset({
       category: 'BUY&SELL',

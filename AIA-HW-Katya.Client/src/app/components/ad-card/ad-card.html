@@ -1,0 +1,27 @@
+<article
+  class="ad-card"
+  [ngClass]="getCategoryClass(ad.category)"
+>
+  <header class="ad-header">
+    <span class="ad-category">{{ ad.category }}</span>
+    <span class="ad-date">{{ ad.createdAt | date: 'dd/MM/yyyy' }}</span>
+  </header>
+
+  <h2 class="ad-title">
+    {{ ad.title }}
+  </h2>
+
+  <p class="ad-description">
+    {{ ad.description }}
+  </p>
+
+  <footer class="ad-footer">
+    <span class="ad-owner">By {{ ad.owner }}</span>
+    <span class="ad-location">{{ ad.location }}</span>
+  </footer>
+
+  <div class="ad-actions">
+    <button class="btn-secondary" (click)="onEdit()">Edit</button>
+    <button class="btn-danger" (click)="onDelete()">Delete</button>
+  </div>
+</article>
