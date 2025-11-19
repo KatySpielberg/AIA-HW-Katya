@@ -191,6 +191,7 @@
 .ad-actions {
   display: flex;
   justify-content: flex-end;
+  gap: 0.4rem;
   margin-top: 0.5rem;
 }
 
@@ -205,5 +206,19 @@
 
 .btn-secondary:hover {
   background: #f5f5f5;
+}
+
+.btn-danger {
+  padding: 0.35rem 0.7rem;
+  font-size: 0.8rem;
+  border-radius: 6px;
+  border: 1px solid #c62828;
+  background: #ef5350;
+  color: #fff;
+  cursor: pointer;
+}
+
+.btn-danger:hover {
+  background: #e53935;
 }
 

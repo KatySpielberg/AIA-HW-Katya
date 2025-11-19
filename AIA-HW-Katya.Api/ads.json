@@ -1,15 +1,5 @@
 [
   {
-    "Id": 1,
-    "Category": "BUY\u0026SELL",
-    "Title": "Laptop for sale",
-    "Description": "Dell XPS 13, excellent condition.",
-    "Owner": "Katya",
-    "Location": "Tel Aviv",
-    "CreatedAt": "2025-11-19T10:24:32.8839274Z",
-    "ImageUrl": null
-  },
-  {
     "Id": 2,
     "Category": "BUY\u0026SELL",
     "Title": "Laptop for sale",

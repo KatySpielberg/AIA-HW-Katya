@@ -97,6 +97,40 @@ onSubmit(): void {
   });
 }
 
+  // מצב DELETE
+deleteAd(ad: Ad): void {
+  if (!ad.id) {
+    return;
+  }
+
+  const confirmed = confirm(`Are you sure you want to delete "${ad.title}"?`);
+  if (!confirmed) {
+    return;
+  }
+
+  this.isSaving = true;
+  this.error = null;
+
+  this.adsService.deleteAd(ad.id).subscribe({
+    next: () => {
+      // מסננים את המודעה מהרשימה
+      this.ads = this.ads.filter(a => a.id !== ad.id);
+
+      // אם ערכנו את אותה מודעה – לאפס טופס
+      if (this.editingId === ad.id) {
+        this.resetForm();
+      } else {
+        this.isSaving = false;
+      }
+    },
+    error: (err: any) => {
+      console.error('Failed to delete ad', err);
+      this.error = 'Failed to delete ad';
+      this.isSaving = false;
+    }
+  });
+}
+
   getCategoryClass(category: string): string {
     switch (category) {
       case 'BUY&SELL':
