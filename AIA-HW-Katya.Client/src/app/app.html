@@ -6,6 +6,57 @@
     </p>
   </header>
 
+  <!-- טופס יצירת מודעה -->
+  <section class="ad-form-section">
+    <h2>Create new ad</h2>
+
+    <form [formGroup]="adForm" (ngSubmit)="onSubmit()" class="ad-form">
+      <div class="form-row">
+        <label for="category">Category</label>
+        <select id="category" formControlName="category">
+          <option value="BUY&SELL">BUY&SELL</option>
+          <option value="RENT">RENT</option>
+          <option value="TRAVEL">TRAVEL</option>
+          <option value="EVENT">EVENT</option>
+        </select>
+      </div>
+
+      <div class="form-row">
+        <label for="title">Title</label>
+        <input id="title" type="text" formControlName="title" />
+      </div>
+
+      <div class="form-row">
+        <label for="description">Description</label>
+        <textarea id="description" rows="2" formControlName="description"></textarea>
+      </div>
+
+      <div class="form-row two-cols">
+        <div>
+          <label for="owner">Owner</label>
+          <input id="owner" type="text" formControlName="owner" />
+        </div>
+        <div>
+          <label for="location">Location</label>
+          <input id="location" type="text" formControlName="location" />
+        </div>
+      </div>
+
+      <div class="form-row">
+        <label for="imageUrl">Image URL (optional)</label>
+        <input id="imageUrl" type="text" formControlName="imageUrl" />
+      </div>
+
+      <button
+        type="submit"
+        class="btn-primary"
+        [disabled]="adForm.invalid || isSaving"
+      >
+        {{ isSaving ? 'Saving...' : 'Create ad' }}
+      </button>
+    </form>
+  </section>
+
   <!-- מצב טעינה -->
   <section *ngIf="isLoading" class="state state-loading">
     Loading ads...
