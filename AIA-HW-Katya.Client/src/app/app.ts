@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Ad } from './models/ad.model';
+import { Ad, AD_CATEGORIES } from './models/ad.model';
 import { AdsService } from './services/ads.service';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators, FormsModule } from '@angular/forms';
 import { AdCardComponent } from './components/ad-card/ad-card';
 import { AdFormComponent } from './components/ad-form/ad-form';
 
@@ -12,6 +12,7 @@ import { AdFormComponent } from './components/ad-form/ad-form';
   imports: [
     CommonModule,
     ReactiveFormsModule,
+    FormsModule,          // עבור ngModel בסינון
     AdCardComponent,
     AdFormComponent
   ],
@@ -24,6 +25,11 @@ export class AppComponent implements OnInit {
   ads: Ad[] = [];
   isLoading = false;
   error: string | null = null;
+
+  // מצב סינון/חיפוש
+  searchTerm = '';                    // טקסט חיפוש
+  selectedCategory: string = 'ALL';   // קטגוריה נבחרת
+  readonly categories = AD_CATEGORIES;
 
   // טופס יצירת/עריכת מודעה
   adForm!: FormGroup;
@@ -47,6 +53,36 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadAds();
+  }
+
+  // חישוב רשימת המודעות אחרי סינון/חיפוש
+  get filteredAds(): Ad[] {
+    let result = [...this.ads];
+
+    // סינון לפי קטגוריה (אם לא נבחר "הכול")
+    if (this.selectedCategory !== 'ALL') {
+      result = result.filter(ad => ad.category === this.selectedCategory);
+    }
+
+    // חיפוש טקסטואלי
+    const term = this.searchTerm.trim().toLowerCase();
+    if (term) {
+      result = result.filter(ad => {
+        const title = (ad.title ?? '').toLowerCase();
+        const description = (ad.description ?? '').toLowerCase();
+        const owner = (ad.owner ?? '').toLowerCase();
+        const location = (ad.location ?? '').toLowerCase();
+
+        return (
+          title.includes(term) ||
+          description.includes(term) ||
+          owner.includes(term) ||
+          location.includes(term)
+        );
+      });
+    }
+
+    return result;
   }
 
   // טעינת מודעות מהשרת
