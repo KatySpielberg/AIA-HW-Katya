@@ -1,1 +1,42 @@
-[]
+[
+  {
+    "Id": 1,
+    "Category": "BUY\u0026SELL",
+    "Title": "Laptop for sale",
+    "Description": "Dell XPS 13, excellent condition.",
+    "Owner": "Katya",
+    "Location": "Tel Aviv",
+    "CreatedAt": "2025-11-19T10:24:32.8839274Z",
+    "ImageUrl": null
+  },
+  {
+    "Id": 2,
+    "Category": "BUY\u0026SELL",
+    "Title": "Laptop for sale",
+    "Description": "Dell XPS 13, excellent condition.",
+    "Owner": "Katya",
+    "Location": "Tel Aviv",
+    "CreatedAt": "2025-11-19T10:27:59.1196902Z",
+    "ImageUrl": null
+  },
+  {
+    "Id": 3,
+    "Category": "RENT",
+    "Title": "\u05D3\u05D9\u05E8\u05D4",
+    "Description": "\u05DE\u05E6\u05D1 \u05E9\u05DE\u05D5\u05E8",
+    "Owner": "\u05D0\u05D5\u05E8",
+    "Location": "Tel Aviv",
+    "CreatedAt": "2025-11-19T10:29:45.6817504Z",
+    "ImageUrl": null
+  },
+  {
+    "Id": 4,
+    "Category": "EVENT",
+    "Title": "\u05DE\u05D5\u05E4\u05E2",
+    "Description": "\u05E9\u05D9\u05E8\u05D9\u05DD",
+    "Owner": "\u05E1\u05D9\u05D2\u05DC",
+    "Location": "\u05D7\u05D9\u05E4\u05D4",
+    "CreatedAt": "2025-11-19T10:30:41.2534922Z",
+    "ImageUrl": null
+  }
+]

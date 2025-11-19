@@ -38,4 +38,20 @@ export class AppComponent implements OnInit {
       }
     });
   }
+
+    getCategoryClass(category: string): string {
+    switch (category) {
+      case 'BUY&SELL':
+        return 'category-buy-sell';
+      case 'RENT':
+        return 'category-rent';
+      case 'TRAVEL':
+        return 'category-travel';
+      case 'EVENT':
+        return 'category-event';
+      default:
+        return 'category-other';
+    }
+  }
+
 }

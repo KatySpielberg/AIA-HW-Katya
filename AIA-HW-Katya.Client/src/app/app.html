@@ -1,10 +1,50 @@
-<h1>Ads Board - Test</h1>
+<div class="page">
+  <header class="page-header">
+    <h1>Ads Board</h1>
+    <p class="page-subtitle">
+      Browse latest BUY&SELL, RENT, TRAVEL and EVENT ads.
+    </p>
+  </header>
 
-<div *ngIf="isLoading">Loading...</div>
-<div *ngIf="error">{{ error }}</div>
+  <!-- מצב טעינה -->
+  <section *ngIf="isLoading" class="state state-loading">
+    Loading ads...
+  </section>
 
-<ul *ngIf="!isLoading && !error">
-  <li *ngFor="let ad of ads">
-    <strong>{{ ad.category }}</strong> - {{ ad.title }} ({{ ad.location }})
-  </li>
-</ul>
+  <!-- מצב שגיאה -->
+  <section *ngIf="error" class="state state-error">
+    {{ error }}
+  </section>
+
+  <!-- מצב ללא מודעות -->
+  <section *ngIf="!isLoading && !error && ads.length === 0" class="state state-empty">
+    No ads yet. Be the first to post!
+  </section>
+
+  <!-- רשימת מודעות -->
+  <section *ngIf="!isLoading && !error && ads.length > 0" class="ads-grid">
+    <article
+      *ngFor="let ad of ads"
+      class="ad-card"
+      [ngClass]="getCategoryClass(ad.category)"
+    >
+      <header class="ad-header">
+        <span class="ad-category">{{ ad.category }}</span>
+        <span class="ad-date">{{ ad.createdAt | date: 'dd/MM/yyyy' }}</span>
+      </header>
+
+      <h2 class="ad-title">
+        {{ ad.title }}
+      </h2>
+
+      <p class="ad-description">
+        {{ ad.description }}
+      </p>
+
+      <footer class="ad-footer">
+        <span class="ad-owner">By {{ ad.owner }}</span>
+        <span class="ad-location">{{ ad.location }}</span>
+      </footer>
+    </article>
+  </section>
+</div>
