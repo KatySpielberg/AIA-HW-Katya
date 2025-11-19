@@ -2,14 +2,15 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Ad } from '../models/ad.model';
-
+import { environment } from '../../environments/environment.development';
 @Injectable({
   providedIn: 'root'
 })
 export class AdsService {
 
     // (dotnet run) הזנה ל API
-  private readonly baseUrl = 'http://localhost:5283/api/ads';
+  //private readonly baseUrl = 'http://localhost:5283/api/ads';
+  private readonly baseUrl = `${environment.apiBaseUrl}/ads`;
 
   constructor(private http: HttpClient) {}
 

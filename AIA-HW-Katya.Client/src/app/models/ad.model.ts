@@ -1,10 +1,19 @@
+export type AdCategory = 'BUY&SELL' | 'RENT' | 'TRAVEL' | 'EVENT';
+
+export const AD_CATEGORIES: AdCategory[] = [
+  'BUY&SELL',
+  'RENT',
+  'TRAVEL',
+  'EVENT'
+];
+
 export interface Ad {
   id: number;
-  category: string;      // BUY&SELL / RENT / TRAVEL / EVENT
+  category: AdCategory;
   title: string;
   description: string;
   owner: string;
   location: string;
-  createdAt: string;     // DateTime from backend as ISO string
+  createdAt: string;     // ISO string
   imageUrl?: string | null;
 }
