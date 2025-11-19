@@ -1,9 +1,7 @@
 <div class="page">
   <header class="page-header">
     <h1>Ads Board</h1>
-    <p class="page-subtitle">
-      Browse latest BUY&SELL, RENT, TRAVEL and EVENT ads.
-    </p>
+    <p class="page-subtitle">Browse latest BUY&SELL, RENT, TRAVEL and EVENT ads.</p>
   </header>
 
   <!-- טופס יצירת מודעה -->
@@ -47,20 +45,14 @@
         <input id="imageUrl" type="text" formControlName="imageUrl" />
       </div>
 
-      <button
-        type="submit"
-        class="btn-primary"
-        [disabled]="adForm.invalid || isSaving"
-      >
-        {{ isSaving ? 'Saving...' : 'Create ad' }}
+      <button type="submit" class="btn-primary" [disabled]="adForm.invalid || isSaving">
+        {{ editingId ? 'Update ad' : 'Create ad' }}
       </button>
     </form>
   </section>
 
   <!-- מצב טעינה -->
-  <section *ngIf="isLoading" class="state state-loading">
-    Loading ads...
-  </section>
+  <section *ngIf="isLoading" class="state state-loading">Loading ads...</section>
 
   <!-- מצב שגיאה -->
   <section *ngIf="error" class="state state-error">
@@ -74,14 +66,10 @@
 
   <!-- רשימת מודעות -->
   <section *ngIf="!isLoading && !error && ads.length > 0" class="ads-grid">
-    <article
-      *ngFor="let ad of ads"
-      class="ad-card"
-      [ngClass]="getCategoryClass(ad.category)"
-    >
+    <article *ngFor="let ad of ads" class="ad-card" [ngClass]="getCategoryClass(ad.category)">
       <header class="ad-header">
         <span class="ad-category">{{ ad.category }}</span>
-        <span class="ad-date">{{ ad.createdAt | date: 'dd/MM/yyyy' }}</span>
+        <span class="ad-date">{{ ad.createdAt | date : 'dd/MM/yyyy' }}</span>
       </header>
 
       <h2 class="ad-title">
@@ -96,6 +84,9 @@
         <span class="ad-owner">By {{ ad.owner }}</span>
         <span class="ad-location">{{ ad.location }}</span>
       </footer>
+      <div class="ad-actions">
+        <button class="btn-secondary" (click)="editAd(ad)">Edit</button>
+      </div>
     </article>
   </section>
 </div>
